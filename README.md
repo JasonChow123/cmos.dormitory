@@ -24,74 +24,101 @@ cmos.dormitory turns daily dorm activities (cleaning, duty shifts, participation
 - Audit logging and transactional safety to ensure correctness of points flows
 
 ## Quick Start — Based on this repository's current contents
-Note: I inspected the repository root and found a static frontend file (index.html). There is no package.json, no backend directory, and no migration scripts in the repository root. The instructions below cover the common cases and provide executable commands for serving the current static site, plus guidance if a Node-based dev environment exists later.
+
+> Note: the repository currently contains a static `index.html`. The instructions below cover how to preview that static site, and also include guidance for when a backend or Node.js app is added later.
 
 1. Clone the repository
-   git clone https://github.com/JasonChow123/cmos.dormitory.git
-   cd cmos.dormitory
+```bash
+git clone https://github.com/JasonChow123/cmos.dormitory.git
+cd cmos.dormitory
+```
 
 2. Inspect repository to determine project type
-   ls -la
-   # Check for Node.js project files
-   if [ -f package.json ]; then echo "Found package.json"; else echo "No package.json found — repository appears to be a static site"; fi
+```bash
+ls -la
+# Check for Node.js project files
+if [ -f package.json ]; then
+  echo "Found package.json"
+else
+  echo "No package.json found — repository appears to be a static site"
+fi
+```
 
-3. If the repository is a static site (current state: index.html present)
-   - Open the file directly in your browser:
-     - Double-click index.html or open with your browser (file://...).
-   - Or serve it locally with a lightweight static server:
+3. Serving the static site (current state: index.html present)
+- Open directly:
+  - Double-click `index.html` or open it in your browser (`file://...`).
+- Serve locally (recommended to avoid file:// restrictions):
 
-     Python 3:
-       python3 -m http.server 8000
-       # then open http://localhost:8000 in your browser
+Python 3:
+```bash
+python3 -m http.server 8000
+# open http://localhost:8000
+```
 
-     Node (if you have npm available):
-       npx serve . -l 3000
-       # then open http://localhost:3000
+Node (npx serve):
+```bash
+npx serve . -l 3000
+# open http://localhost:3000
+```
 
-     VS Code:
-       Use the Live Server extension and click "Go Live" on index.html.
+VS Code:
+- Use the Live Server extension and click "Go Live" on `index.html`.
 
-4. If the repository later includes a Node.js app (package.json found)
-   - Install dependencies and run:
-     npm install
-     npm run dev   # or npm start (use the script names defined in package.json)
+4. If/when this repo contains a Node.js app (i.e., `package.json` is added)
+```bash
+# install dependencies
+npm install
 
-   - If there are backend and frontend subdirectories:
-     cd backend
-     npm install
-     npm run dev
-     cd ../frontend
-     npm install
-     npm run dev
+# start in development (script names may vary)
+npm run dev
+# or
+npm start
+```
 
-5. Database / environment configuration (only relevant if a backend is added)
-   - Create a `.env` from `.env.sample` and fill values (DATABASE_URL, JWT_SECRET, etc.)
-     cp .env.sample .env
-     # Edit .env with real values
+If the project later separates into `backend/` and `frontend/` directories:
+```bash
+# backend
+cd backend
+npm install
+npm run dev
 
-   - Run database creation and migrations according to the project's chosen ORM/migration tool:
-     # Example (Prisma):
-     npx prisma migrate dev --name init
-     # Example (TypeORM):
-     npm run typeorm migration:run
-     # Example (Sequelize):
-     npx sequelize-cli db:migrate
+# frontend
+cd ../frontend
+npm install
+npm run dev
+```
 
-6. Common troubleshooting
-   - If a page fails to load, open the developer console to see JS/CSS errors.
-   - Ensure required static assets (images, JS bundles) are present in the repo relative to index.html.
-   - If you intended a full-stack project but only see index.html, confirm whether other branches or submodules hold the backend.
+5. Environment & database (only relevant when a backend exists)
+- Copy `.env.sample` and fill real values:
+```bash
+cp .env.sample .env
+# edit .env with your secrets and DB connection
+```
 
-Notes
-- The current repository snapshot contains a static front-end file (index.html). The above Quick Start prioritizes easy ways to preview that static content.
-- If you plan to add a backend or convert this into a multi-package repo, add package.json, README scripts, and a clear backend/frontend directory layout to the repository so that automated scripts (npm run dev / npm start) can be used.
+- Example migration commands (replace with your project's tool):
+Prisma:
+```bash
+npx prisma migrate dev --name init
+```
+TypeORM:
+```bash
+npm run typeorm migration:run
+```
+Sequelize:
+```bash
+npx sequelize-cli db:migrate
+```
+
+6. Troubleshooting tips
+- If static assets (JS/CSS/images) are missing, check their relative paths from `index.html`.
+- For JS errors, open DevTools Console to inspect stack traces.
+- If you expect a backend but only see `index.html`, check other branches, submodules, or ask the maintainer for the server repo.
 
 ## Contribution
-Contributions are welcome. See CONTRIBUTING.md for details on reporting issues, creating pull requests, and coding standards.
+See CONTRIBUTING.md for contribution guidelines.
 
 ## Contact & Support
-Maintainer: @JasonChow123  
-For custom features or deployment help, open an Issue or reach out via the contact listed in the repository.
+Maintainer: @JasonChow123
 
 ## License
 Add project license here (e.g., MIT, Apache-2.0).
