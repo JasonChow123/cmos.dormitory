@@ -1,11 +1,11 @@
-# cmos.dormitory
+# 🎯 cmos.dormitory — Dormitory Points & Rewards System 
 
 Dormitory Points & Rewards System — a lightweight platform designed for managing points, evaluations, and redemptions in dormitory or shared-living scenarios.
 
-## Project Overview
+## <img src="https://img.shields.io/badge/Project%20Overview- -2563EB?style=flat-square" alt="blue"> Project Overview
 cmos.dormitory turns daily dorm activities (cleaning, duty shifts, participation, infractions, etc.) into quantifiable "points" and provides a transparent, auditable process for issuing and redeeming those points. The system supports multiple roles (admin, dorm leader, member) with clear permission boundaries to make dorm self-governance and management committee operations straightforward.
 
-## Core Features
+## 🛠 <img src="https://img.shields.io/badge/Core%20Features- -7C3AED?style=flat-square" alt="purple"> Core Features
 - Points management: automatic or manual awarding and deduction of points via rules for tasks, inspections, activity check-ins, and infractions.
 - Redemption: members can redeem points for goods, vouchers or services (e.g., laundry pass, equipment borrowing).
 - Approval and audit: configurable approval workflows for redemptions and a complete transaction log for every points change.
@@ -13,7 +13,7 @@ cmos.dormitory turns daily dorm activities (cleaning, duty shifts, participation
 - Notifications: notify users of points changes and redemption status via in-app notifications, email, or SMS (optional).
 - Extensible catalog and rules engine to support promotions and bulk issuances.
 
-## Use Cases
+#### <img src="https://img.shields.io/badge/Use%20Cases- -F59E0B?style=flat-square" alt="amber"> Use Cases
 - Campus dormitory incentive programs (cleanliness, duty roster, civilized dorm awards)
 - Staff dormitories or co-living spaces that want a lightweight rewards system
 - Event reward systems with physical / service exchange
@@ -23,10 +23,10 @@ cmos.dormitory turns daily dorm activities (cleaning, duty shifts, participation
 - Configurable scoring rules to reduce the need for code changes for common ops
 - Audit logging and transactional safety to ensure correctness of points flows
 
-## Contribution
+## 🤝 Contribution
 Contributions are welcome. See CONTRIBUTING.md for details on reporting issues, creating pull requests, and coding standards.
 
-## Contact & Support
+## 🧾 Contact & Support
 Maintainer: @JasonChow123  
 For custom features or deployment help, open an Issue or reach out via the contact listed in the repository.
 
