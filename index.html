@@ -32,6 +32,37 @@
             gap: 20px;
         }
         
+        /* 這裡是新增的顏色設定 */
+        #activeUsers,
+        #activeUsers + .stat-label {
+            color: #ffd900; /* 王者用戶 */
+        }
+
+        #activeUser4,
+        #activeUser4 + .stat-label {
+            color: #9035F8; /* 鑽石用戶 */
+        }
+
+        #activeUser3,
+        #activeUser3 + .stat-label {
+            color: #75c8ff; /* 鉑金用戶 */
+        }
+
+        #activeUser2,
+        #activeUser2 + .stat-label {
+            color: #ff8904; /* 黃金用戶 */
+        }
+
+        #activeUser1,
+        #activeUser1 + .stat-label {
+            color: #5fecfc; /* 白銀用戶 */
+        }
+
+        #activeUser0,
+        #activeUser0 + .stat-label {
+            color: brown; /* 青銅用戶 */
+        }
+        
         .header {
             text-align: center;
             color: white;
@@ -619,6 +650,45 @@
             border-radius: 5px;
         }
         
+        .user-tier {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-left: 8px;
+        }
+        
+        .tier-king {
+            background-color: #ffd900;
+            color: #000;
+        }
+        
+        .tier-diamond {
+            background-color: #9035F8;
+            color: white;
+        }
+        
+        .tier-platinum {
+            background-color: #75c8ff;
+            color: #000;
+        }
+        
+        .tier-gold {
+            background-color: #ff8904;
+            color: white;
+        }
+        
+        .tier-silver {
+            background-color: #5fecfc;
+            color: #000;
+        }
+        
+        .tier-bronze {
+            background-color: brown;
+            color: white;
+        }
+        
         @media (max-width: 768px) {
             .login-section {
                 flex-direction: column;
@@ -755,8 +825,12 @@
                     <h3 id="dashboardUserName">张三</h3>
                     <p>用戶編號: <span id="dashboardUserId">U1001</span></p>
                     <p>QRcode編碼: <span id="dashboardUserBarcode">BARCODE001</span></p>
+                    <p>段位: <span id="dashboardUserTier">青銅</span></p>
                 </div>
-                <div class="points" id="dashboardUserPoints">1500</div>
+                <div>
+                    <div class="points" id="dashboardUserPoints">1500</div>
+                    <div style="text-align: right;">累積積分: <span id="dashboardUserTotalPoints">2500</span></div>
+                </div>
             </div>
             
             <div class="user-barcode">
@@ -811,12 +885,28 @@
                         <div class="stat-label">總積分</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value" id="avgPoints">0</div>
-                        <div class="stat-label">平均積分</div>
+                        <div class="stat-value" id="activeUsers">0</div>
+                        <div class="stat-label">👑👑👑王者用戶🏅️🏅️🏅️</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value" id="activeUsers">0</div>
-                        <div class="stat-label">活躍用戶</div>
+                        <div class="stat-value" id="activeUser4">0</div>
+                        <div class="stat-label">💎鑽石用戶💎</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="activeUser3">0</div>
+                        <div class="stat-label">💍鉑金用戶💍</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="activeUser2">0</div>
+                        <div class="stat-label">✨黃金用戶✨</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="activeUser1">0</div>
+                        <div class="stat-label">🥈白銀用戶🥈</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="activeUser0">0</div>
+                        <div class="stat-label">.🔥青銅用戶🔥.</div>
                     </div>
                 </div>
                 
@@ -857,7 +947,8 @@
                             <th>姓名</th>
                             <th>QRcode編碼</th>
                             <th>當前積分</th>
-                            <th>用戶類型</th>
+                            <th>累積積分</th>
+                            <th>段位</th>
                             <th>操作</th>
                         </tr>
                     </thead>
@@ -1060,6 +1151,8 @@
                 name: '张三', 
                 barcodeCode: 'USER001', 
                 points: 1500, 
+                totalPoints: 2500, // 新增：累積積分
+                tier: '鉑金', // 新增：段位
                 isAdmin: false 
             },
             { 
@@ -1067,6 +1160,8 @@
                 name: '李四', 
                 barcodeCode: 'USER002', 
                 points: 800, 
+                totalPoints: 1200, // 新增：累積積分
+                tier: '黃金', // 新增：段位
                 isAdmin: false 
             },
             { 
@@ -1074,6 +1169,8 @@
                 name: '王五', 
                 barcodeCode: 'USER003', 
                 points: 2200, 
+                totalPoints: 3200, // 新增：累積積分
+                tier: '鑽石', // 新增：段位
                 isAdmin: false 
             },
             { 
@@ -1081,6 +1178,8 @@
                 name: '系统管理员', 
                 barcodeCode: 'ADMIN001', 
                 points: 0, 
+                totalPoints: 0, // 新增：累積積分
+                tier: '', // 新增：段位
                 isAdmin: true 
             }
         ];
@@ -1100,13 +1199,46 @@
             { userId: 'U1001', timestamp: new Date('2023-10-01 09:30:00').getTime(), pointsChange: 100, reason: '签到奖励' },
             { userId: 'U1001', timestamp: new Date('2023-10-05 14:20:00').getTime(), pointsChange: -200, reason: '兑换咖啡券' },
             { userId: 'U1001', timestamp: new Date('2023-10-10 11:15:00').getTime(), pointsChange: 500, reason: '活动奖励' },
+            { userId: 'U1001', timestamp: new Date('2023-10-15 15:40:00').getTime(), pointsChange: 800, reason: '管理员调整' },
             { userId: 'U1002', timestamp: new Date('2023-10-02 10:45:00').getTime(), pointsChange: 100, reason: '签到奖励' },
             { userId: 'U1002', timestamp: new Date('2023-10-07 16:30:00').getTime(), pointsChange: 300, reason: '完成任务' },
             { userId: 'U1003', timestamp: new Date('2023-10-03 08:20:00').getTime(), pointsChange: 100, reason: '签到奖励' },
             { userId: 'U1003', timestamp: new Date('2023-10-08 13:10:00').getTime(), pointsChange: 1000, reason: '推荐用户奖励' },
-            { userId: 'U1001', timestamp: new Date('2023-10-15 15:40:00').getTime(), pointsChange: 800, reason: '管理员调整' },
             { userId: 'U1003', timestamp: new Date('2023-10-12 17:25:00').getTime(), pointsChange: 400, reason: '活动奖励' }
         ];
+        
+        // 段位划分标准（基于累积积分）
+        const tierThresholds = [
+            { name: '青銅', min: 0, max: 299 },
+            { name: '白銀', min: 300, max: 599 },
+            { name: '黃金', min: 600, max: 899 },
+            { name: '鉑金', min: 900, max: 1199 },
+            { name: '鑽石', min: 1200, max: 1499 },
+            { name: '王者', min: 1500, max: Infinity }
+        ];
+        
+        // 计算用户段位
+        function calculateUserTier(totalPoints) {
+            for (const tier of tierThresholds) {
+                if (totalPoints >= tier.min && totalPoints <= tier.max) {
+                    return tier.name;
+                }
+            }
+            return '青銅';
+        }
+        
+        // 获取段位对应的CSS类名
+        function getTierClass(tierName) {
+            switch(tierName) {
+                case '王者': return 'tier-king';
+                case '鑽石': return 'tier-diamond';
+                case '鉑金': return 'tier-platinum';
+                case '黃金': return 'tier-gold';
+                case '白銀': return 'tier-silver';
+                case '青銅': return 'tier-bronze';
+                default: return 'tier-bronze';
+            }
+        }
         
         // *****
         const adminPassword = 'admin123';
@@ -1319,6 +1451,14 @@
                     user.points += pointsChange;
                     if (user.points < 0) user.points = 0;
                     
+                    // 如果是增加积分，同时增加累积积分
+                    if (pointsChange > 0) {
+                        user.totalPoints += pointsChange;
+                    }
+                    
+                    // 更新段位
+                    user.tier = calculateUserTier(user.totalPoints);
+                    
                     // 记录积分变更历史
                     pointsHistory.push({
                         userId: user.id,
@@ -1381,12 +1521,17 @@
                     return;
                 }
                 
+                // 计算段位
+                const userTier = calculateUserTier(userPoints);
+                
                 // 添加新用户
                 users.push({
                     id: userId,
                     name: userName,
                     barcodeCode: barcodeCode,
                     points: userPoints,
+                    totalPoints: userPoints, // 初始累积积分等于当前积分
+                    tier: userTier, // 初始段位
                     isAdmin: false
                 });
                 
@@ -1801,6 +1946,9 @@
             document.getElementById('dashboardUserId').textContent = currentUser.id;
             document.getElementById('dashboardUserBarcode').textContent = currentUser.barcodeCode;
             document.getElementById('dashboardUserPoints').textContent = currentUser.points;
+            document.getElementById('dashboardUserTotalPoints').textContent = currentUser.totalPoints;
+            document.getElementById('dashboardUserTier').textContent = currentUser.tier;
+            document.getElementById('dashboardUserTier').className = 'user-tier ' + getTierClass(currentUser.tier);
             
             // 生成用户条形码 - 添加延迟
             setTimeout(() => {
@@ -1887,13 +2035,15 @@
             
             filteredUsers.forEach(user => {
                 const row = document.createElement('tr');
+                const tierClass = getTierClass(user.tier);
                 
                 row.innerHTML = `
                     <td>${user.id}</td>
                     <td>${user.name}</td>
                     <td>${user.barcodeCode}</td>
                     <td>${user.points}</td>
-                    <td>${user.isAdmin ? '管理員' : '普通用戶'}</td>
+                    <td>${user.totalPoints}</td>
+                    <td><span class="user-tier ${tierClass}">${user.tier}</span></td>
                     <td>
                         <button class="action-btn" style="background: #3498db;" onclick="selectUser('${user.id}')">选择</button>
                         ${!user.isAdmin ? 
@@ -2080,17 +2230,27 @@
             }
         }
         
-        // 更新用户统计信息
+        // 更新用户统计信息 - 使用累积积分
         function updateUserStats() {
             const totalUsers = users.filter(u => !u.isAdmin).length;
             const totalPoints = users.filter(u => !u.isAdmin).reduce((sum, user) => sum + user.points, 0);
-            const avgPoints = totalUsers > 0 ? Math.round(totalPoints / totalUsers) : 0;
-            const activeUsers = users.filter(u => !u.isAdmin && u.points > 0).length;
+            
+            // 使用累积积分统计各段位用户数量
+            const activeUsers = users.filter(u => !u.isAdmin && u.totalPoints >= 1500).length;
+            const activeUser4 = users.filter(u => !u.isAdmin && u.totalPoints >= 1200 && u.totalPoints < 1500).length;
+            const activeUser3 = users.filter(u => !u.isAdmin && u.totalPoints >= 900 && u.totalPoints < 1200).length;
+            const activeUser2 = users.filter(u => !u.isAdmin && u.totalPoints >= 600 && u.totalPoints < 900).length;
+            const activeUser1 = users.filter(u => !u.isAdmin && u.totalPoints >= 300 && u.totalPoints < 600).length;
+            const activeUser0 = users.filter(u => !u.isAdmin && u.totalPoints < 300).length;
             
             document.getElementById('totalUsers').textContent = totalUsers;
             document.getElementById('totalPoints').textContent = totalPoints;
-            document.getElementById('avgPoints').textContent = avgPoints;
             document.getElementById('activeUsers').textContent = activeUsers;
+            document.getElementById('activeUser4').textContent = activeUser4;
+            document.getElementById('activeUser3').textContent = activeUser3;
+            document.getElementById('activeUser2').textContent = activeUser2;
+            document.getElementById('activeUser1').textContent = activeUser1;
+            document.getElementById('activeUser0').textContent = activeUser0;
         }
         
         // 更新系统统计信息
@@ -2174,6 +2334,16 @@
                     
                     if (importedData.users && Array.isArray(importedData.users)) {
                         users = importedData.users;
+                        
+                        // 确保导入的用户数据有累积积分和段位字段
+                        users.forEach(user => {
+                            if (user.totalPoints === undefined) {
+                                user.totalPoints = user.points || 0;
+                            }
+                            if (user.tier === undefined) {
+                                user.tier = calculateUserTier(user.totalPoints);
+                            }
+                        });
                     }
                     
                     if (importedData.prizes && Array.isArray(importedData.prizes)) {
@@ -2249,6 +2419,8 @@
                         name: '系统管理員', 
                         barcodeCode: 'ADMIN001', 
                         points: 0, 
+                        totalPoints: 0,
+                        tier: '',
                         isAdmin: true 
                     }
                 ];
